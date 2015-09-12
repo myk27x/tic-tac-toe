@@ -13,8 +13,9 @@ class Game
       [1,5,9],
       [3,5,7]
     ]
+
     @count = 0
-    @x1x = "1"
+    @x1x = '1'
     @x2x = '2'
     @x3x = '3'
     @x4x = '4'
@@ -23,6 +24,7 @@ class Game
     @x7x = '7'
     @x8x = '8'
     @x9x = '9'
+
     puts "Who is going to be 'X'?"
     name = gets.chomp.capitalize
     @p1 = Player1.new(name)
@@ -34,12 +36,21 @@ class Game
     puts ""
     puts "#{@p2.name} is 'O'"
     puts ""
+
     board
+    # @x1x = ' '
+    # @x2x = ' '
+    # @x3x = ' '
+    # @x4x = ' '
+    # @x5x = ' '
+    # @x6x = ' '
+    # @x7x = ' '
+    # @x8x = ' '
+    # @x9x = ' '
     play
   end
 
   def board
-
     puts %{
 
                              |         |
@@ -83,68 +94,41 @@ class Game
     @p1_choice = gets.chomp.to_i
     case
     when @p1_choice == 1
-      if @x1x == "X"|| @x1x == "O"
-        return false
-      else
-        @x1x = "X"
-        return true
-      end
+      return false if @x1x == "X"|| @x1x == "O"
+      @x1x = "X"
+      return true
     when @p1_choice == 2
-      if @x2x == 'X'|| @x2x == 'O'
-        return false
-      else
-        @x2x = "X"
-        return true
-      end
+      return false if @x2x == 'X'|| @x2x == 'O'
+      @x2x = "X"
+      return true
     when @p1_choice == 3
-      if @x3x == 'X'|| @x3x == 'O'
-        return false
-      else
-        @x3x = "X"
-        return true
-      end
+      return false if @x3x == 'X'|| @x3x == 'O'
+      @x3x = "X"
+      return true
     when @p1_choice == 4
-      if @x4x == 'X'|| @x4x == 'O'
-        return false
-      else
-        @x4x = "X"
-        return true
-      end
+      return false if @x4x == 'X'|| @x4x == 'O'
+      @x4x = "X"
+      return true
     when @p1_choice == 5
-      if @x5x == 'X'|| @x5x == 'O'
-        return false
-      else
-        @x5x = "X"
-        return true
-      end
+      return false if @x5x == 'X'|| @x5x == 'O'
+      @x5x = "X"
+      return true
     when @p1_choice == 6
-      if @x6x == 'X'|| @x6x == 'O'
-        return false
-      else
-        @x6x = "X"
-        return true
-      end
+      return false if @x6x == 'X'|| @x6x == 'O'
+      @x6x = "X"
+      return true
     when @p1_choice == 7
-      if @x7x == 'X'|| @x7x == 'O'
-        return false
-      else
-        @x7x = "X"
-        return true
-      end
+      return false if @x7x == 'X'|| @x7x == 'O'
+      @x7x = "X"
+      return true
     when @p1_choice == 8
-      if @x8x == 'X'|| @x8x == 'O'
-        return false
-      else
-        @x8x = "X"
-        return true
-      end
+      return false if @x8x == 'X'|| @x8x == 'O'
+      @x8x = "X"
+      return true
     when @p1_choice == 9
-      if @x9x == 'X'|| @x9x == 'O'
-        return false
-      else
-        @x9x = "X"
-        return true
-      end
+      return false if @x9x == 'X'|| @x9x == 'O'
+      @x9x = "X"
+      return true
     else
       return false
     end
@@ -156,70 +140,43 @@ class Game
     @p2_choice = gets.chomp.to_i
     case
     when @p2_choice == 1
-      if @x1x == "X"|| @x1x == "O"
-        return false
-      else
+      return false if @x1x == "X"|| @x1x == "O"
         @x1x = "O"
-        puts @x1x
         return true
-      end
     when @p2_choice == 2
-      if @x2x == 'X'|| @x2x == 'O'
-        return false
-      else
+      return false if @x2x == 'X'|| @x2x == 'O'
         @x2x = "O"
         return true
-      end
     when @p2_choice == 3
-      if @x3x == 'X'|| @x3x == 'O'
-        return false
-      else
+      return false if @x3x == 'X'|| @x3x == 'O'
         @x3x = "O"
         return true
-      end
     when @p2_choice == 4
-      if @x4x == 'X'|| @x4x == 'O'
-        return false
-      else
+      return false if @x4x == 'X'|| @x4x == 'O'
         @x4x = "O"
         return true
-      end
     when @p2_choice == 5
-      if @x5x == 'X'|| @x5x == 'O'
-        return false
-      else
+      return false if @x5x == 'X'|| @x5x == 'O'
         @x5x = "O"
         return true
-      end
     when @p2_choice == 6
-      if @x6x == 'X'|| @x6x == 'O'
-        return false
-      else
+      return false if @x6x == 'X'|| @x6x == 'O'
         @x6x = "O"
         return true
-      end
     when @p2_choice == 7
-      if @x7x == 'X'|| @x7x == 'O'
-        return false
-      else
+      return false if @x7x == 'X'|| @x7x == 'O'
         @x7x = "O"
         return true
-      end
     when @p2_choice == 8
-      if @x8x == 'X'|| @x8x == 'O'
-        return false
-      else
+      return false if @x8x == 'X'|| @x8x == 'O'
         @x8x = "O"
         return true
-      end
     when @p2_choice == 9
-      if @x9x == 'X'|| @x9x == 'O'
-        return false
-      else
+      return false if @x9x == 'X'|| @x9x == 'O'
         @x9x = "O"
         return true
-      end
     else
+      return false
     end
   end
 
