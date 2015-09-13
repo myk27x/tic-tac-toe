@@ -1,4 +1,5 @@
 class Game
+
   def initialize
     @p1_choice = 0
     @p2_choice = 0
@@ -83,6 +84,7 @@ class Game
     puts ""
     puts "#{@p2.name} is 'O'"
     puts ""
+    # board
     play_2p
   end
 
@@ -101,7 +103,7 @@ class Game
       board
       break if @count ==9
     end
-    puts "It's a tie! Crazy random happenstance or evely matched? Only another match can tell..."
+    puts "It's a tie!"
     play_again
   end
 
@@ -131,7 +133,7 @@ class Game
       board
       break if @count ==9
     end
-    puts "It's a tie! Crazy random happenstance or evely matched? Only another match can tell..."
+    puts "It's a tie!"
     play_again
   end
 
@@ -163,7 +165,7 @@ class Game
       board
       break if @count ==9
     end
-    puts "It's a tie! Crazy random happenstance or evely matched? Only another match can tell..."
+    puts "It's a tie!"
     play_again
   end
 
@@ -213,50 +215,46 @@ class Game
     @win2.each do |inner|
       if inner == [:X,:X,:X]
         puts "#{@p1.name} wins!"
-        puts "Crazy random happenstance or evely matched? Only another match can tell..."
         play_again
       elsif inner == [:O,:O,:O]
         puts "#{@p2.name} wins!"
-        puts "Crazy random happenstance or evely matched? Only another match can tell..."
         play_again
       elsif inner == [:C,:C,:C]
         puts "Computer wins!"
-        puts "Crazy random happenstance or evely matched? Only another match can tell..."
         play_again
       end
     end
   end
 
   def play_again
-    puts "Enter (Y) to play again."
-    again = gets.chomp.capitalize
-    if again == "Y"
-      if defined? @p1.name
-        if defined? @p2.name
-          p "2 player go"
-          initialize
-          play_2p
-        end
+    puts "Crazy random happenstance or evenly skilled? Only another match can tell..."
+    puts "Would you like a rematch? (Y)es or (N)o?"
+    rematch = gets.chomp.capitalize
+    if rematch == "Y"
+      initialize
+      if defined?(@p1.name) && defined?(@p2.name)
+        play_2p
+      elsif defined?(@p1.name) && !defined?(@p2.name)
+        play_1p_X
+      elsif defined?(@p2.name) && !defined?(@p1.name)
+        play_1p_O
       end
-      if defined? @p1.name
-        if !defined? @p2.name
-          initialize
-          p "1 player X go"
-          play_1p_X
-        end
+    elsif rematch == "N"
+      puts "Would you like to start a new game? (Y)es or (N)o?"
+      new_game = gets.chomp.capitalize
+      if new_game == "Y"
+        @p1 = nil
+        @p2 = nil
+        initialize
+        ai_or_2p
+      else
+        exit
       end
-      if defined? @p2.name
-        if !defined? @p1.name
-          initialize
-          p "1 player O go"
-          play_1p_O
-        end
-      end
-      puts "nothing matched?"
     else
       exit
     end
   end
+
 end
 
 class Player1
