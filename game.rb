@@ -1,8 +1,11 @@
-# Make a 2 player tic-toe-toe game.
-
 class Game
-
   def initialize
+    @p1_choice = 0
+    @p2_choice = 0
+    @ai_choice = 0
+
+    @cells = [1,2,3,4,5,6,7,8,9]
+
     @win2 = [
       [1,2,3],
       [4,5,6],
@@ -15,16 +18,60 @@ class Game
     ]
 
     @count = 0
-    @x1x = '1'
-    @x2x = '2'
-    @x3x = '3'
-    @x4x = '4'
-    @x5x = '5'
-    @x6x = '6'
-    @x7x = '7'
-    @x8x = '8'
-    @x9x = '9'
+  end
 
+  def board
+    puts %{
+
+                             |         |
+                        #{@cells[0]}    |    #{@cells[1]}    |    #{@cells[2]}
+                             |         |
+                    ---------+---------+---------
+                             |         |
+                        #{@cells[3]}    |    #{@cells[4]}    |    #{@cells[5]}
+                             |         |
+                    ---------+---------+---------
+                             |         |
+                        #{@cells[6]}    |    #{@cells[7]}    |    #{@cells[8]}
+                             |         |
+
+    }
+    tally
+    winner
+  end
+
+  def game
+    puts "Let's get ready to rumble!!! (with tic-tac-toe...)"
+    ai_or_2p
+  end
+
+  def ai_or_2p
+    puts "How many players do we have? Enter (1) or (2)?"
+    opponent = gets.chomp.to_i
+    player_init_1p if opponent == 1
+    player_init_2p if opponent == 2
+    puts "Try again..."
+    ai_or_2p
+  end
+
+  def player_init_1p
+    puts "What's your name?"
+    name = gets.chomp.capitalize
+    puts "Do you want 'X' or 'O'?"
+    x_or_o = gets.chomp.upcase
+    if x_or_o == "X"
+      @p1 = Player1.new(name)
+      play_1p_X
+    elsif x_or_o == "O"
+      @p2 = Player2.new(name)
+      play_1p_O
+    else
+      puts "No, no, no, you have to pick 'X' or 'O'..."
+      player_init_1p
+    end
+  end
+
+  def player_init_2p
     puts "Who is going to be 'X'?"
     name = gets.chomp.capitalize
     @p1 = Player1.new(name)
@@ -36,53 +83,85 @@ class Game
     puts ""
     puts "#{@p2.name} is 'O'"
     puts ""
+    play_2p
+  end
 
+  def play_1p_X
     board
-    # @x1x = ' '
-    # @x2x = ' '
-    # @x3x = ' '
-    # @x4x = ' '
-    # @x5x = ' '
-    # @x6x = ' '
-    # @x7x = ' '
-    # @x8x = ' '
-    # @x9x = ' '
-    play
-  end
-
-  def board
-    puts %{
-
-                             |         |
-                        #{@x1x}    |    #{@x2x}    |    #{@x3x}
-                             |         |
-                    ---------+---------+---------
-                             |         |
-                        #{@x4x}    |    #{@x5x}    |    #{@x6x}
-                             |         |
-                    ---------+---------+---------
-                             |         |
-                        #{@x7x}    |    #{@x8x}    |    #{@x9x}
-                             |         |
-
-    }
-    tally
-    winner
-  end
-
-  def play
     loop do
       until puts_X_down
         puts "Try again!"
       end
-      board
       @count += 1
+      board
+      break if @count ==9
+      until ai_O
+      end
+      @count += 1
+      board
+      break if @count ==9
+    end
+    puts "It's a tie! Crazy random happenstance or evely matched? Only another match can tell..."
+    play_again
+  end
+
+  def ai_O
+    @ai_choice = rand(1..9)
+    @cells.map do |cell|
+      if cell == @ai_choice
+        @cells[@ai_choice - 1] = :O
+        puts "Computer chooses #{@ai_choice}."
+        return true
+      end
+    end
+    return false
+  end
+
+  def play_1p_O
+    loop do
+      until ai_X
+      end
+      @count += 1
+      board
       break if @count ==9
       until puts_O_down
         puts "Try again!"
       end
-      board
       @count += 1
+      board
+      break if @count ==9
+    end
+    puts "It's a tie! Crazy random happenstance or evely matched? Only another match can tell..."
+    play_again
+  end
+
+  def ai_X
+    @ai_choice = rand(1..9)
+    @cells.map do |cell|
+      if cell == @ai_choice
+        @cells[@ai_choice - 1] = :X
+        puts "Computer chooses #{@ai_choice}."
+        return true
+      end
+    end
+    return false
+  end
+
+  def play_2p
+    board
+    loop do
+      until puts_X_down
+        puts "Try again!"
+      end
+      @count += 1
+      board
+      break if @count ==9
+      until puts_O_down
+        puts "Try again!"
+      end
+      @count += 1
+      board
+      break if @count ==9
     end
     puts "It's a tie! Crazy random happenstance or evely matched? Only another match can tell..."
     play_again
@@ -92,101 +171,37 @@ class Game
     puts "#{@p1.name}'s turn."
     print "Enter your choice:"
     @p1_choice = gets.chomp.to_i
-    case
-    when @p1_choice == 1
-      return false if @x1x == "X"|| @x1x == "O"
-      @x1x = "X"
-      return true
-    when @p1_choice == 2
-      return false if @x2x == 'X'|| @x2x == 'O'
-      @x2x = "X"
-      return true
-    when @p1_choice == 3
-      return false if @x3x == 'X'|| @x3x == 'O'
-      @x3x = "X"
-      return true
-    when @p1_choice == 4
-      return false if @x4x == 'X'|| @x4x == 'O'
-      @x4x = "X"
-      return true
-    when @p1_choice == 5
-      return false if @x5x == 'X'|| @x5x == 'O'
-      @x5x = "X"
-      return true
-    when @p1_choice == 6
-      return false if @x6x == 'X'|| @x6x == 'O'
-      @x6x = "X"
-      return true
-    when @p1_choice == 7
-      return false if @x7x == 'X'|| @x7x == 'O'
-      @x7x = "X"
-      return true
-    when @p1_choice == 8
-      return false if @x8x == 'X'|| @x8x == 'O'
-      @x8x = "X"
-      return true
-    when @p1_choice == 9
-      return false if @x9x == 'X'|| @x9x == 'O'
-      @x9x = "X"
-      return true
-    else
-      return false
+    @cells.map do |cell|
+      if cell == @p1_choice
+        @cells[@p1_choice - 1] = :X
+        return true
+      end
     end
+    return false
   end
 
   def puts_O_down
     puts "#{@p2.name}'s turn."
     print "Enter your choice:"
     @p2_choice = gets.chomp.to_i
-    case
-    when @p2_choice == 1
-      return false if @x1x == "X"|| @x1x == "O"
-        @x1x = "O"
+    @cells.map do |cell|
+      if cell == @p2_choice
+        @cells[@p2_choice - 1] = :O
         return true
-    when @p2_choice == 2
-      return false if @x2x == 'X'|| @x2x == 'O'
-        @x2x = "O"
-        return true
-    when @p2_choice == 3
-      return false if @x3x == 'X'|| @x3x == 'O'
-        @x3x = "O"
-        return true
-    when @p2_choice == 4
-      return false if @x4x == 'X'|| @x4x == 'O'
-        @x4x = "O"
-        return true
-    when @p2_choice == 5
-      return false if @x5x == 'X'|| @x5x == 'O'
-        @x5x = "O"
-        return true
-    when @p2_choice == 6
-      return false if @x6x == 'X'|| @x6x == 'O'
-        @x6x = "O"
-        return true
-    when @p2_choice == 7
-      return false if @x7x == 'X'|| @x7x == 'O'
-        @x7x = "O"
-        return true
-    when @p2_choice == 8
-      return false if @x8x == 'X'|| @x8x == 'O'
-        @x8x = "O"
-        return true
-    when @p2_choice == 9
-      return false if @x9x == 'X'|| @x9x == 'O'
-        @x9x = "O"
-        return true
-    else
-      return false
+      end
     end
+    return false
   end
 
   def tally
     @win2.each do |inner|
       inner.map! do |value|
         if(value == @p1_choice)
-          value = "X"
+          value = :X
         elsif(value == @p2_choice)
-          value = "O"
+          value = :O
+        elsif(value == @ai_choice)
+          value = :C
         else
           value
         end
@@ -196,12 +211,16 @@ class Game
 
   def winner
     @win2.each do |inner|
-      if inner == ["X","X","X"]
+      if inner == [:X,:X,:X]
         puts "#{@p1.name} wins!"
         puts "Crazy random happenstance or evely matched? Only another match can tell..."
         play_again
-      elsif inner == ["O","O","O"]
+      elsif inner == [:O,:O,:O]
         puts "#{@p2.name} wins!"
+        puts "Crazy random happenstance or evely matched? Only another match can tell..."
+        play_again
+      elsif inner == [:C,:C,:C]
+        puts "Computer wins!"
         puts "Crazy random happenstance or evely matched? Only another match can tell..."
         play_again
       end
@@ -211,13 +230,33 @@ class Game
   def play_again
     puts "Enter (Y) to play again."
     again = gets.chomp.capitalize
-    if  again == "Y"
-      play = Game.new
-      play.game
-    else exit
+    if again == "Y"
+      if defined? @p1.name
+        if defined? @p2.name
+          p "2 player go"
+          initialize
+          play_2p
+        end
+      end
+      if defined? @p1.name
+        if !defined? @p2.name
+          initialize
+          p "1 player X go"
+          play_1p_X
+        end
+      end
+      if defined? @p2.name
+        if !defined? @p1.name
+          initialize
+          p "1 player O go"
+          play_1p_O
+        end
+      end
+      puts "nothing matched?"
+    else
+      exit
     end
   end
-
 end
 
 class Player1
