@@ -84,7 +84,6 @@ class Game
     puts ""
     puts "#{@p2.name} is 'O'"
     puts ""
-    # board
     play_2p
   end
 
