@@ -1,5 +1,3 @@
-## NOW it needs classes!!!
-
 class Game
 
   def initialize
